@@ -43,13 +43,15 @@ echo "Vanilla client version $VANILLA_VER"
 #java $JAVA_ARGS -cp $DEOB_PATH net.runelite.deob.updater.UpdateInject $DEOBFUSCATED_WITH_MAPPINGS $VANILLA $VANILLA_INJECTED
 
 cd src/main/resources
-rm -f *.class
+rm -f *.class net META-INF
 jar xf $VANILLA_INJECTED
 # step 4. deploy injected client.
 #mvn deploy:deploy-file -DgroupId=net.runelite.rs -DartifactId=client -Dversion=$VANILLA_VER -Dpackaging=jar -Dfile=$VANILLA_INJECTED -Durl=$DEPLOY_REPO_URL
 
 # also deploy vanilla client
 #mvn deploy:deploy-file -DgroupId=net.runelite.rs -DartifactId=client-vanilla -Dversion=$VANILLA_VER -Dpackaging=jar -Dfile=$VANILLA -Durl=$DEPLOY_REPO_URL
+
+mvn deploy
 
 exit 0
 

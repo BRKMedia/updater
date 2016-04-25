@@ -4,6 +4,22 @@
 	<groupId>net.runelite.rs</groupId>
 	<artifactId>client</artifactId>
 	<version>1.113-SNAPSHOT</version>
+	<name>Updater</name>
+
+	<distributionManagement>
+		<repository>
+			<id>runelite</id>
+			<url>${runelite.repository.url}</url>
+		</repository>
+	</distributionManagement>
+
+	<repositories>
+		<repository>
+			<id>runelite</id>
+			<name>RuneLite</name>
+			<url>http://repo.runelite.net</url>
+		</repository>
+	</repositories>
 
 	<dependencies>
 		<dependency>
@@ -25,19 +41,19 @@
 
 	<build>
 		<plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-dependency-plugin</artifactId>
-		<version>2.3</version>
-                <executions>
-                    <execution>
-			    <phase>generate-sources</phase>
-                        <goals>
-                            <goal>properties</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<version>2.3</version>
+				<executions>
+					<execution>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>properties</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>exec-maven-plugin</artifactId>
