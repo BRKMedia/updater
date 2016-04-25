@@ -31,29 +31,12 @@ VANILLA_VER=$(java -cp $DEOB_PATH net.runelite.deob.clientver.ClientVersionMain 
 echo "Vanilla client version $VANILLA_VER"
 
 # step 1. deobfuscate vanilla jar. store in $DEOBFUSCATED.
-#rm -f $DEOBFUSCATED
-#java $JAVA_ARGS -cp $DEOB_PATH net.runelite.deob.Deob $VANILLA $DEOBFUSCATED
+rm -f $DEOBFUSCATED
+java $JAVA_ARGS -cp $DEOB_PATH net.runelite.deob.Deob $VANILLA $DEOBFUSCATED
 
 # step 2. map old deob (which has the mapping annotations) -> new client
-#rm -f $DEOBFUSCATED_WITH_MAPPINGS
-#java $JAVA_ARGS -cp $DEOB_PATH net.runelite.deob.updater.UpdateMappings $RS_CLIENT_PATH $DEOBFUSCATED $DEOBFUSCATED_WITH_MAPPINGS
-
-# step 3. inject vanilla client.
-#rm -f $VANILLA_INJECTED
-#java $JAVA_ARGS -cp $DEOB_PATH net.runelite.deob.updater.UpdateInject $DEOBFUSCATED_WITH_MAPPINGS $VANILLA $VANILLA_INJECTED
-
-cd src/main/resources
-rm -f *.class net META-INF
-jar xf $VANILLA_INJECTED
-# step 4. deploy injected client.
-#mvn deploy:deploy-file -DgroupId=net.runelite.rs -DartifactId=client -Dversion=$VANILLA_VER -Dpackaging=jar -Dfile=$VANILLA_INJECTED -Durl=$DEPLOY_REPO_URL
-
-# also deploy vanilla client
-#mvn deploy:deploy-file -DgroupId=net.runelite.rs -DartifactId=client-vanilla -Dversion=$VANILLA_VER -Dpackaging=jar -Dfile=$VANILLA -Durl=$DEPLOY_REPO_URL
-
-mvn deploy
-
-exit 0
+rm -f $DEOBFUSCATED_WITH_MAPPINGS
+java $JAVA_ARGS -cp $DEOB_PATH net.runelite.deob.updater.UpdateMappings $RS_CLIENT_PATH $DEOBFUSCATED $DEOBFUSCATED_WITH_MAPPINGS
 
 # step 5. decompile deobfuscated mapped client.
 rm -rf /tmp/dest
@@ -71,6 +54,8 @@ git rm src/main/java/*.java
 mkdir -p src/main/java/
 cp /tmp/dest/*.java src/main/java/
 git add src/main/java/
+
+# bump versions
 
 git config user.name "Runelite auto updater"
 git config user.email runelite@runelite.net
