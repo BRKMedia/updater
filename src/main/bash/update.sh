@@ -96,7 +96,7 @@ cd $RS_CLIENT_REPO
 mvn release:clean release:prepare -Darguments="-DskipTests" -B
 
 # I couldn't figure out a better way to do this
-RELEASED_VER=git show `git describe --abbrev=0`:runelite-client/pom.xml | grep version | head -n3 | tail -n1 | sed 's/[a-z<>/\t]*//g'
+RELEASED_VER=$(git show `git describe --abbrev=0`:runelite-client/pom.xml | grep version | head -n3 | tail -n1 | sed 's/[a-z<>/\t]*//g')
 
 # Update static.runelite.net
 cd $STATIC_RUNELITE_NET
