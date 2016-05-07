@@ -33,10 +33,16 @@ echo "Vanilla client version $VANILLA_VER"
 # step 1. deobfuscate vanilla jar. store in $DEOBFUSCATED.
 rm -f $DEOBFUSCATED
 java $JAVA_ARGS -cp $DEOB_PATH net.runelite.deob.Deob $VANILLA $DEOBFUSCATED
+if [ $? -ne 0 ] ; then
+	exit 1
+fi
 
 # step 2. map old deob (which has the mapping annotations) -> new client
 rm -f $DEOBFUSCATED_WITH_MAPPINGS
 java $JAVA_ARGS -cp $DEOB_PATH net.runelite.deob.updater.UpdateMappings $RS_CLIENT_PATH $DEOBFUSCATED $DEOBFUSCATED_WITH_MAPPINGS
+if [ $? -ne 0 ] ; then
+	exit 1
+fi
 
 # step 5. decompile deobfuscated mapped client.
 rm -rf /tmp/dest
@@ -66,7 +72,7 @@ git commit -m "Update $VANILLA_VER"
 git pull --no-edit
 git push
 
-mvn install -DskipTests
+mvn clean install -DskipTests
 
 # Now update our version
 cd $BASEDIR
