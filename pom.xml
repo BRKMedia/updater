@@ -3,7 +3,7 @@
 
 	<groupId>net.runelite.rs</groupId>
 	<artifactId>client</artifactId>
-	<version>113.1-SNAPSHOT</version> <!-- rs.version -->
+	<version>1.0-SNAPSHOT</version>
 	<name>Updater</name>
 
 	<distributionManagement>
@@ -16,7 +16,7 @@
 	<repositories>
 		<repository>
 			<id>runelite</id>
-			<name>RuneLite</name>
+			<name>Runelite</name>
 			<url>http://repo.runelite.net</url>
 		</repository>
 	</repositories>
@@ -30,12 +30,13 @@
 		<dependency>
 			<groupId>net.runelite.rs</groupId>
 			<artifactId>rs-client</artifactId>
-			<version>${project.version}</version>
+			<version>113.1-SNAPSHOT</version> <!-- rs.version -->
 		</dependency>
 		<dependency>
 			<groupId>net.runelite</groupId>
 			<artifactId>deob</artifactId>
 			<version>1.0-SNAPSHOT</version>
+			<classifier>jar-with-dependencies</classifier>
 		</dependency>
 	</dependencies>
 
@@ -68,7 +69,8 @@
 							<environmentVariables>
 								<RS_API_PATH>${net.runelite.rs:api:jar}</RS_API_PATH>
 								<RS_CLIENT_PATH>${net.runelite.rs:rs-client:jar}</RS_CLIENT_PATH>
-								<DEOB_PATH>${net.runelite:deob:jar}</DEOB_PATH>
+								<DEOB_PATH>${net.runelite:deob:jar:jar-with-dependencies}</DEOB_PATH>
+								<BASEDIR>${basedir}</BASEDIR>
 							</environmentVariables>
 						</configuration>
 					</execution>
