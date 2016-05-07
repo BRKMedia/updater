@@ -75,6 +75,8 @@ find $BASEDIR -name pom.xml -exec sed -i "s/<version>.*<\/version>.*rs version.*
 # Bump versions from above install
 mvn versions:use-latest-versions -DallowSnapshots
 
+find $BASEDIR -name pom.xml -exec git add {} \;
+
 git config user.name "Runelite auto updater"
 git config user.email runelite@runelite.net
 
@@ -92,7 +94,7 @@ RELEASED_VER=git show `git describe --abbrev=0`:runelite-client/pom.xml | grep v
 
 # Update static.runelite.net
 cd $STATIC_RUNELITE_NET
-echo '{"client":{"groupId":"net.runelite","artifactId":"client","version":"VERSION",classifier":"","extension":"jar","properties":{}},"clientJvmArguments":["-Xmx256m","-Xss2m","-Dsun.java2d.noddraw\u003dtrue","-XX:CompileThreshold\u003d1500","-Xincgc","-XX:+UseConcMarkSweepGC","-XX:+UseParNewGC"]}' | sed "s/VERSION/$RELEASED_VER/" > bootstrap.json
+echo '{"client":{"groupId":"net.runelite","artifactId":"client","version":"VERSION","classifier":"","extension":"jar","properties":{}},"clientJvmArguments":["-Xmx256m","-Xss2m","-Dsun.java2d.noddraw\u003dtrue","-XX:CompileThreshold\u003d1500","-Xincgc","-XX:+UseConcMarkSweepGC","-XX:+UseParNewGC"]}' | sed "s/VERSION/$RELEASED_VER/" > bootstrap.json
 git add bootstrap.json
 
 git config user.name "Runelite auto updater"
