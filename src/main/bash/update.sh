@@ -30,6 +30,9 @@ wget $JAR_URL -O $VANILLA
 VANILLA_VER=$(java -cp $DEOB_PATH net.runelite.deob.clientver.ClientVersionMain $VANILLA)
 echo "Vanilla client version $VANILLA_VER"
 
+# deploy vanilla jar, used by injector
+mvn deploy:deploy-file -DgroupId=net.runelite.rs -DartifactId=vanilla -Dversion=$VANILLA_VER -Dfile=/tmp/vanilla.jar -DrepositoryId=runelite -Durl=$RUNELITE_REPOSITORY_URL
+
 # step 1. deobfuscate vanilla jar. store in $DEOBFUSCATED.
 rm -f $DEOBFUSCATED
 java $JAVA_ARGS -cp $DEOB_PATH net.runelite.deob.Deob $VANILLA $DEOBFUSCATED
@@ -44,7 +47,7 @@ if [ $? -ne 0 ] ; then
 	exit 1
 fi
 
-# step 5. decompile deobfuscated mapped client.
+# decompile deobfuscated mapped client.
 rm -rf /tmp/dest
 mkdir /tmp/dest
 java -Xmx1024m -jar $FERNFLOWER_JAR $DEOBFUSCATED_WITH_MAPPINGS /tmp/dest/
@@ -63,11 +66,13 @@ git add src/main/java/
 
 # bump versions
 find $RS_CLIENT_REPO -name pom.xml -exec sed -i "s/<version>.*<\/version>.*rs version.*/<version>$VANILLA_VER.1-SNAPSHOT<\/version> <!-- rs version -->/" {} \;
-find $RS_CLIENT_REPO -name pom.xml -exec git add {} \;
+# update vanilla jar version for injector, which was deployed above
+mvn versions:use-latest-versions -DincludesList=net.runelite.rs:vanilla:jar
 
 git config user.name "Runelite auto updater"
 git config user.email runelite@runelite.net
 
+find $RS_CLIENT_REPO -name pom.xml -exec git add {} \;
 git commit -m "Update $VANILLA_VER"
 git pull --no-edit
 git push
