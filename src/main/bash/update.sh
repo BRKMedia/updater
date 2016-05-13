@@ -77,9 +77,16 @@ git commit -m "Update $VANILLA_VER"
 git pull --no-edit
 git push
 
+# Perform release
 mvn clean install -DskipTests
 
-# Now update our version
+# I dont know why this also seems to perform the release too, maybe the -B
+mvn release:clean release:prepare -Darguments="-DskipTests" -B
+
+# Install now that theres a new SNAPSHOT version, for below versions:use-latest-versions
+mvn clean install -DskipTests
+
+# Now update our version, for the next game update
 cd $BASEDIR
 find $BASEDIR -name pom.xml -exec sed -i "s/<version>.*<\/version>.*rs version.*/<version>$VANILLA_VER.1-SNAPSHOT<\/version> <!-- rs version -->/" {} \;
 
@@ -95,15 +102,12 @@ git commit -m "Update $VANILLA_VER"
 git pull --no-edit
 git push
 
-# Perform release
-cd $RS_CLIENT_REPO
-# I dont know why this also seems to perform the release too, maybe the -B
-mvn release:clean release:prepare -Darguments="-DskipTests" -B
+
+# Update static.runelite.net
 
 # I couldn't figure out a better way to do this
 RELEASED_VER=$(git show `git describe --abbrev=0`:runelite-client/pom.xml | grep version | head -n3 | tail -n1 | sed 's/[a-z<>/\t]*//g')
 
-# Update static.runelite.net
 cd $STATIC_RUNELITE_NET
 echo '{"client":{"groupId":"net.runelite","artifactId":"client","version":"VERSION","classifier":"","extension":"jar","properties":{}},"clientJvmArguments":["-Xmx256m","-Xss2m","-Dsun.java2d.noddraw\u003dtrue","-XX:CompileThreshold\u003d1500","-Xincgc","-XX:+UseConcMarkSweepGC","-XX:+UseParNewGC"]}' | sed "s/VERSION/$RELEASED_VER/" > bootstrap.json
 git add bootstrap.json
