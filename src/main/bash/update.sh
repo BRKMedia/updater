@@ -86,6 +86,9 @@ mvn release:clean release:prepare -Darguments="-DskipTests" -B
 # Install now that theres a new SNAPSHOT version, for below versions:use-latest-versions
 mvn clean install -DskipTests
 
+# I couldn't figure out a better way to do this
+RELEASED_VER=$(git show `git describe --abbrev=0`:runelite-client/pom.xml | grep version | head -n3 | tail -n1 | sed 's/[a-z<>/\t]*//g')
+
 # Now update our version, for the next game update
 cd $BASEDIR
 find $BASEDIR -name pom.xml -exec sed -i "s/<version>.*<\/version>.*rs version.*/<version>$VANILLA_VER.1-SNAPSHOT<\/version> <!-- rs version -->/" {} \;
@@ -104,9 +107,6 @@ git push
 
 
 # Update static.runelite.net
-
-# I couldn't figure out a better way to do this
-RELEASED_VER=$(git show `git describe --abbrev=0`:runelite-client/pom.xml | grep version | head -n3 | tail -n1 | sed 's/[a-z<>/\t]*//g')
 
 cd $STATIC_RUNELITE_NET
 echo '{"client":{"groupId":"net.runelite","artifactId":"client","version":"VERSION","classifier":"","extension":"jar","properties":{}},"clientJvmArguments":["-Xmx256m","-Xss2m","-Dsun.java2d.noddraw\u003dtrue","-XX:CompileThreshold\u003d1500","-Xincgc","-XX:+UseConcMarkSweepGC","-XX:+UseParNewGC"]}' | sed "s/VERSION/$RELEASED_VER/" > bootstrap.json
