@@ -1,11 +1,11 @@
 #!/bin/bash
 
 JAVA_ARGS="-ea -Xmx512m"
-FERNFLOWER_JAR=/home/runelite/fernflower/fernflower.jar
 
 echo RS API at $RS_API_PATH
 echo RS client $RS_CLIENT_PATH
 echo Deobfuscator at $DEOB_PATH
+echo Fernflower at $FERNFLOWER_PATH
 
 JAV_CONFIG=/tmp/jav_config.ws
 VANILLA=/tmp/vanilla.jar
@@ -50,7 +50,7 @@ fi
 # decompile deobfuscated mapped client.
 rm -rf /tmp/dest
 mkdir /tmp/dest
-java -Xmx1024m -jar $FERNFLOWER_JAR $DEOBFUSCATED_WITH_MAPPINGS /tmp/dest/
+java -Xmx1024m -jar $FERNFLOWER_PATH $DEOBFUSCATED_WITH_MAPPINGS /tmp/dest/
 
 # extract source
 cd /tmp/dest

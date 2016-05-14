@@ -38,6 +38,11 @@
 			<version>1.1-SNAPSHOT</version>
 			<classifier>jar-with-dependencies</classifier>
 		</dependency>
+		<dependency>
+			<groupId>net.runelite</groupId>
+			<artifactId>fernflower</artifactId>
+			<version>20150605</version>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -70,6 +75,7 @@
 								<RS_API_PATH>${net.runelite.rs:api:jar}</RS_API_PATH>
 								<RS_CLIENT_PATH>${net.runelite.rs:rs-client:jar}</RS_CLIENT_PATH>
 								<DEOB_PATH>${net.runelite:deob:jar:jar-with-dependencies}</DEOB_PATH>
+								<FERNFLOWER_PATH>${net.runelite:fernflower:jar}</FERNFLOWER_PATH>
 								<BASEDIR>${basedir}</BASEDIR>
 							</environmentVariables>
 						</configuration>
