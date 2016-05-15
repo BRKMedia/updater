@@ -1,0 +1,11 @@
+Host githubrunelite
+	HostName github.com
+	IdentityFile ~/.ssh/runelite
+
+Host githubupdater
+	HostName github.com
+	IdentityFile ~/.ssh/runelite-updater
+
+Host githubstatic
+	HostName github.com
+	IdentityFile ~/.ssh/static.runelite.net

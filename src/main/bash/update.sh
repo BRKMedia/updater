@@ -12,8 +12,14 @@ VANILLA=/tmp/vanilla.jar
 DEOBFUSCATED=/tmp/deobfuscated.jar
 DEOBFUSCATED_WITH_MAPPINGS=/tmp/deobfuscated_with_mappings.jar
 VANILLA_INJECTED=/tmp/vanilla_injected.jar
-RS_CLIENT_REPO=/home/runelite/runelite
-STATIC_RUNELITE_NET=/home/runelite/static.runelite.net
+RS_CLIENT_REPO=/tmp/runelite
+STATIC_RUNELITE_NET=/tmp/static.runelite.net
+
+# travis docs say git version is too old to do shallow pushes
+cd /tmp
+rm -rf runelite static.runelite.net
+git clone git@githubrunelite:runelite/runelite
+git clone git@githubstatic:runelite/static.runelite.net
 
 curl -L oldschool.runescape.com/jav_config.ws > $JAV_CONFIG
 
@@ -80,8 +86,7 @@ git push
 # Perform release
 mvn clean install -DskipTests
 
-# I dont know why this also seems to perform the release too, maybe the -B
-mvn release:clean release:prepare -Darguments="-DskipTests" -B
+mvn release:clean release:prepare release:perform -Darguments="-DskipTests" -B
 
 # Install now that theres a new SNAPSHOT version, for below versions:use-latest-versions
 mvn clean install -DskipTests
@@ -103,7 +108,9 @@ git config user.email runelite@runelite.net
 
 git commit -m "Update $VANILLA_VER"
 git pull --no-edit
-git push
+
+git remote add githubssh git@githubupdater:runelite/updater
+git push githubssh master
 
 
 # Update static.runelite.net
