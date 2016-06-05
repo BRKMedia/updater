@@ -41,6 +41,9 @@ echo "Vanilla client version $VANILLA_VER"
 # deploy vanilla jar, used by injector
 cd -
 mvn --settings travis/settings.xml deploy:deploy-file -DgroupId=net.runelite.rs -DartifactId=vanilla -Dversion=$VANILLA_VER -Dfile=/tmp/vanilla.jar -DrepositoryId=runelite -Durl=$RUNELITE_REPOSITORY_URL
+if [ $? -ne 0 ] ; then
+	exit 1
+fi
 cd -
 
 # step 1. deobfuscate vanilla jar. store in $DEOBFUSCATED.
@@ -79,7 +82,10 @@ find $RS_CLIENT_REPO -name pom.xml -exec sed -i "s/<version>.*<\/version>.*rs ve
 
 cd $RS_CLIENT_REPO/runescape-client-injector
 # update vanilla jar version for injector, which was deployed above
-mvn -U versions:use-latest-versions -DincludesList=net.runelite.rs:vanilla:jar
+mvn --settings $BASEDIR/travis/settings.xml -U versions:use-latest-versions -DincludesList=net.runelite.rs:vanilla:jar
+if [ $? -ne 0 ] ; then
+	exit 1
+fi
 
 cd $RS_CLIENT_REPO
 
@@ -94,14 +100,23 @@ git push
 
 # Perform release
 cd $RS_CLIENT_REPO
-mvn clean install -DskipTests
+mvn --settings $BASEDIR/travis/settings.xml clean install -DskipTests
+if [ $? -ne 0 ] ; then
+	exit 1
+fi
 
 cp ~/.ssh/runelite ~/.ssh/github # copy key for maven plugin, as it pushes to mavens configured <scm> repo
-mvn release:clean release:prepare release:perform -Darguments="-DskipTests" -B
+mvn --settings $BASEDIR/travis/settings.xml release:clean release:prepare release:perform -Darguments="-DskipTests" -B
+if [ $? -ne 0 ] ; then
+	exit 1
+fi
 rm -f ~/.ssh/github
 
 # Install now that theres a new SNAPSHOT version, for below versions:use-latest-versions
-mvn clean install -DskipTests
+mvn --settings $BASEDIR/travis/settings.xml clean install -DskipTests
+if [ $? -ne 0 ] ; then
+	exit 1
+fi
 
 # I couldn't figure out a better way to do this
 RELEASED_VER=$(git show `git describe --abbrev=0`:runelite-client/pom.xml | grep version | head -n3 | tail -n1 | sed 's/[a-z<>/\t]*//g')
@@ -111,7 +126,10 @@ cd $BASEDIR
 find $BASEDIR -name pom.xml -exec sed -i "s/<version>.*<\/version>.*rs version.*/<version>$VANILLA_VER.1-SNAPSHOT<\/version> <!-- rs version -->/" {} \;
 
 # Bump versions from above install
-mvn -U versions:use-latest-versions -DallowSnapshots
+mvn --settings $BASEDIR/travis/settings.xml -U versions:use-latest-versions -DallowSnapshots
+if [ $? -ne 0 ] ; then
+	exit 1
+fi
 
 find $BASEDIR -name pom.xml -exec git add {} \;
 
