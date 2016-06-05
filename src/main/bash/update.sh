@@ -137,10 +137,10 @@ git config user.name "Runelite auto updater"
 git config user.email runelite@runelite.net
 
 git commit -m "Update $VANILLA_VER"
-git pull --no-edit
+git pull origin master --no-edit
 
 git remote add githubssh git@githubupdater:runelite/updater
-git push githubssh master
+git push githubssh HEAD:master # travis checks out a detached head on a specific commit
 
 
 # Update static.runelite.net
