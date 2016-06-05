@@ -75,14 +75,19 @@ git add src/main/java/
 
 # bump versions
 find $RS_CLIENT_REPO -name pom.xml -exec sed -i "s/<version>.*<\/version>.*rs version.*/<version>$VANILLA_VER.1-SNAPSHOT<\/version> <!-- rs version -->/" {} \;
+
+cd $RS_CLIENT_REPO/runescape-client-injector
 # update vanilla jar version for injector, which was deployed above
-mvn versions:use-latest-versions -DincludesList=net.runelite.rs:vanilla:jar
+mvn -U versions:use-latest-versions -DincludesList=net.runelite.rs:vanilla:jar
+
+cd $RS_CLIENT_REPO
 
 git config user.name "Runelite auto updater"
 git config user.email runelite@runelite.net
 
 find $RS_CLIENT_REPO -name pom.xml -exec git add {} \;
 git commit -m "Update $VANILLA_VER"
+echo "Commited update $VANILLA_VER to $RS_CLIENT_REPO"
 git pull --no-edit
 git push
 
@@ -103,7 +108,7 @@ cd $BASEDIR
 find $BASEDIR -name pom.xml -exec sed -i "s/<version>.*<\/version>.*rs version.*/<version>$VANILLA_VER.1-SNAPSHOT<\/version> <!-- rs version -->/" {} \;
 
 # Bump versions from above install
-mvn versions:use-latest-versions -DallowSnapshots
+mvn -U versions:use-latest-versions -DallowSnapshots
 
 find $BASEDIR -name pom.xml -exec git add {} \;
 
