@@ -39,7 +39,7 @@ echo "Vanilla client version $VANILLA_VER"
 
 # deploy vanilla jar, used by injector
 cd -
-mvn deploy:deploy-file -DgroupId=net.runelite.rs -DartifactId=vanilla -Dversion=$VANILLA_VER -Dfile=/tmp/vanilla.jar -DrepositoryId=runelite -Durl=$RUNELITE_REPOSITORY_URL
+mvn --settings travis/settings.xml deploy:deploy-file -DgroupId=net.runelite.rs -DartifactId=vanilla -Dversion=$VANILLA_VER -Dfile=/tmp/vanilla.jar -DrepositoryId=runelite -Durl=$RUNELITE_REPOSITORY_URL
 cd -
 
 # step 1. deobfuscate vanilla jar. store in $DEOBFUSCATED.
