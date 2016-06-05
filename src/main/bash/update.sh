@@ -14,6 +14,7 @@ DEOBFUSCATED_WITH_MAPPINGS=/tmp/deobfuscated_with_mappings.jar
 VANILLA_INJECTED=/tmp/vanilla_injected.jar
 RS_CLIENT_REPO=/tmp/runelite
 STATIC_RUNELITE_NET=/tmp/static.runelite.net
+#RUNELITE_REPOSITORY_URL=
 
 # travis docs say git version is too old to do shallow pushes
 cd /tmp
@@ -37,7 +38,9 @@ VANILLA_VER=$(java -cp $DEOB_PATH net.runelite.deob.clientver.ClientVersionMain 
 echo "Vanilla client version $VANILLA_VER"
 
 # deploy vanilla jar, used by injector
+cd -
 mvn deploy:deploy-file -DgroupId=net.runelite.rs -DartifactId=vanilla -Dversion=$VANILLA_VER -Dfile=/tmp/vanilla.jar -DrepositoryId=runelite -Durl=$RUNELITE_REPOSITORY_URL
+cd -
 
 # step 1. deobfuscate vanilla jar. store in $DEOBFUSCATED.
 rm -f $DEOBFUSCATED
@@ -84,6 +87,7 @@ git pull --no-edit
 git push
 
 # Perform release
+cd $RS_CLIENT_REPO
 mvn clean install -DskipTests
 
 mvn release:clean release:prepare release:perform -Darguments="-DskipTests" -B
