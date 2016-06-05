@@ -9,3 +9,6 @@ Host githubupdater
 Host githubstatic
 	HostName github.com
 	IdentityFile ~/.ssh/static.runelite.net
+
+Host github.com
+	IdentityFile ~/.ssh/github

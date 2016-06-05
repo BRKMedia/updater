@@ -7,6 +7,7 @@ echo RS client $RS_CLIENT_PATH
 echo Deobfuscator at $DEOB_PATH
 echo Fernflower at $FERNFLOWER_PATH
 
+BASEDIR=`pwd`
 JAV_CONFIG=/tmp/jav_config.ws
 VANILLA=/tmp/vanilla.jar
 DEOBFUSCATED=/tmp/deobfuscated.jar
@@ -95,7 +96,9 @@ git push
 cd $RS_CLIENT_REPO
 mvn clean install -DskipTests
 
+cp ~/.ssh/runelite ~/.ssh/github # copy key for maven plugin, as it pushes to mavens configured <scm> repo
 mvn release:clean release:prepare release:perform -Darguments="-DskipTests" -B
+rm -f ~/.ssh/github
 
 # Install now that theres a new SNAPSHOT version, for below versions:use-latest-versions
 mvn clean install -DskipTests
