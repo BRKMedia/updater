@@ -2,7 +2,6 @@
 
 JAVA_ARGS="-ea -Xmx512m"
 
-echo RS API at $RS_API_PATH
 echo RS client $RS_CLIENT_PATH
 echo Deobfuscator at $DEOB_PATH
 echo Fernflower at $FERNFLOWER_PATH
