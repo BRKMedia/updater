@@ -25,12 +25,12 @@
 		<dependency>
 			<groupId>net.runelite.rs</groupId>
 			<artifactId>rs-client</artifactId>
-			<version>120.2-SNAPSHOT</version> <!-- rs.version -->
+			<version>121.2-SNAPSHOT</version> <!-- rs.version -->
 		</dependency>
 		<dependency>
 			<groupId>net.runelite</groupId>
 			<artifactId>deob</artifactId>
-			<version>1.2.7-SNAPSHOT</version>
+			<version>1.2.8-SNAPSHOT</version>
 			<classifier>jar-with-dependencies</classifier>
 		</dependency>
 		<dependency>
