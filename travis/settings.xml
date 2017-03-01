@@ -258,6 +258,7 @@ under the License.
 
       <properties>
         <runelite.repository.url>${env.RUNELITE_REPOSITORY_URL}</runelite.repository.url>
+        <runelite.tomcat.url>http://api.runelite.net/manager/text</runelite.tomcat.url>
       </properties>
     </profile>
   </profiles>
