@@ -121,7 +121,7 @@ if [ $? -ne 0 ] ; then
 fi
 
 # I couldn't figure out a better way to do this
-RELEASED_VER=$(git show `git describe --abbrev=0`:runelite-client/pom.xml | grep version | head -n3 | tail -n1 | sed 's/[a-z<>/\t]*//g')
+RELEASED_VER=$(git describe --abbrev=0 | sed 's/runelite-parent-//')
 
 # Now update our version, for the next game update
 cd $BASEDIR
