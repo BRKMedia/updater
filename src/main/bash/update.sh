@@ -14,7 +14,7 @@ DEOBFUSCATED_WITH_MAPPINGS=/tmp/deobfuscated_with_mappings.jar
 VANILLA_INJECTED=/tmp/vanilla_injected.jar
 RS_CLIENT_REPO=/tmp/runelite
 STATIC_RUNELITE_NET=/tmp/static.runelite.net
-#RUNELITE_REPOSITORY_URL=
+RUNELITE_REPOSITORY_URL=dav:http://repo.runelite.net
 
 # travis docs say git version is too old to do shallow pushes
 cd /tmp
