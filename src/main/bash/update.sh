@@ -79,14 +79,12 @@ git add src/main/java/
 find src/main/java -maxdepth 1 -name "*.java" -printf "%f\n" | sed 's/\.java$//'  > src/main/resources/classes.txt
 git add src/main/resources/classes.txt
 
-cd $RS_CLIENT_REPO/runescape-client-injector
-# update vanilla jar version for injector, which was deployed above
-mvn --settings $BASEDIR/travis/settings.xml -U versions:use-latest-versions -DincludesList=net.runelite.rs:vanilla:jar
+# Update RS version property
+cd $RS_CLIENT_REPO
+sed -i "s/rs.version>[0-9]*/rs.version>$VANILLA_VER/" pom.xml
 if [ $? -ne 0 ] ; then
 	exit 1
 fi
-
-cd $RS_CLIENT_REPO
 
 git config user.name "Runelite auto updater"
 git config user.email runelite@runelite.net
