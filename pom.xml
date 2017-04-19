@@ -25,7 +25,7 @@
 		<dependency>
 			<groupId>net.runelite.rs</groupId>
 			<artifactId>rs-client</artifactId>
-			<version>139.2-SNAPSHOT</version> <!-- rs.version -->
+			<version>1.1.26-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>net.runelite</groupId>

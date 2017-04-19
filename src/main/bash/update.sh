@@ -79,9 +79,6 @@ git add src/main/java/
 find src/main/java -maxdepth 1 -name "*.java" -printf "%f\n" | sed 's/\.java$//'  > src/main/resources/classes.txt
 git add src/main/resources/classes.txt
 
-# bump versions
-find $RS_CLIENT_REPO -name pom.xml -exec sed -i "s/<version>.*<\/version>.*rs version.*/<version>$VANILLA_VER.1-SNAPSHOT<\/version> <!-- rs version -->/" {} \;
-
 cd $RS_CLIENT_REPO/runescape-client-injector
 # update vanilla jar version for injector, which was deployed above
 mvn --settings $BASEDIR/travis/settings.xml -U versions:use-latest-versions -DincludesList=net.runelite.rs:vanilla:jar
@@ -123,11 +120,8 @@ fi
 # I couldn't figure out a better way to do this
 RELEASED_VER=$(git describe --abbrev=0 | sed 's/runelite-parent-//')
 
-# Now update our version, for the next game update
-cd $BASEDIR
-find $BASEDIR -name pom.xml -exec sed -i "s/<version>.*<\/version>.*rs version.*/<version>$VANILLA_VER.1-SNAPSHOT<\/version> <!-- rs version -->/" {} \;
-
 # Bump versions from above install
+cd $BASEDIR
 mvn --settings $BASEDIR/travis/settings.xml -U versions:use-latest-versions -DallowSnapshots
 if [ $? -ne 0 ] ; then
 	exit 1
