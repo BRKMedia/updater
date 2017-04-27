@@ -265,7 +265,7 @@ under the License.
         <runelite.tomcat.url>http://api.runelite.net/manager/text</runelite.tomcat.url>
 
         <jarsigner.skip>false</jarsigner.skip>
-        <jarsigner.keystore>travis/runelite.keystore</jarsigner.keystore>
+        <jarsigner.keystore>/tmp/runelite.keystore</jarsigner.keystore>
         <jarsigner.alias>rl</jarsigner.alias>
         <jarsigner.storepass>${env.KEYSTORE_PASSWORD}</jarsigner.storepass>
         <jarsigner.keypass>${env.KEYSTORE_PASSWORD}</jarsigner.keypass>
