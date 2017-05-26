@@ -1,6 +1,6 @@
 #!/bin/bash
 
-JAVA_ARGS="-ea -Xmx2048m"
+JAVA_ARGS="-ea -Xmx512m"
 
 echo RS client $RS_CLIENT_PATH
 echo Deobfuscator at $DEOB_PATH
@@ -62,7 +62,7 @@ fi
 # decompile deobfuscated mapped client.
 rm -rf /tmp/dest
 mkdir /tmp/dest
-java -Xmx2048m -jar $FERNFLOWER_PATH $DEOBFUSCATED_WITH_MAPPINGS /tmp/dest/
+java -Xmx1024m -jar $FERNFLOWER_PATH $DEOBFUSCATED_WITH_MAPPINGS /tmp/dest/
 
 # extract source
 cd /tmp/dest
