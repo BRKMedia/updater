@@ -93,15 +93,16 @@ find $RS_CLIENT_REPO -name pom.xml -exec git add {} \;
 git commit -m "Update $VANILLA_VER"
 echo "Commited update $VANILLA_VER to $RS_CLIENT_REPO"
 git pull --no-edit
-git push
 
-# Perform release
 cd $RS_CLIENT_REPO
 mvn --settings $BASEDIR/travis/settings.xml clean install -DskipTests
 if [ $? -ne 0 ] ; then
 	exit 1
 fi
 
+git push origin master
+
+# Perform release
 cp ~/.ssh/runelite ~/.ssh/github # copy key for maven plugin, as it pushes to mavens configured <scm> repo
 mvn --settings $BASEDIR/travis/settings.xml release:clean release:prepare release:perform -Darguments="-DskipTests" -B
 if [ $? -ne 0 ] ; then
