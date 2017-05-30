@@ -269,6 +269,9 @@ under the License.
         <jarsigner.alias>rl</jarsigner.alias>
         <jarsigner.storepass>${env.KEYSTORE_PASSWORD}</jarsigner.storepass>
         <jarsigner.keypass>${env.KEYSTORE_PASSWORD}</jarsigner.keypass>
+
+        <!-- generate javadoc on release -->
+        <maven.javadoc.skip>false</maven.javadoc.skip>
       </properties>
     </profile>
   </profiles>
