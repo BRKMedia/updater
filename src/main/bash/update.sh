@@ -76,9 +76,6 @@ mkdir -p src/main/java/
 cp /tmp/dest/*.java src/main/java/
 git add src/main/java/
 
-find src/main/java -maxdepth 1 -name "*.java" -printf "%f\n" | sed 's/\.java$//'  > src/main/resources/classes.txt
-git add src/main/resources/classes.txt
-
 # Update RS version property
 cd $RS_CLIENT_REPO
 sed -i "s/rs.version>[0-9]*/rs.version>$VANILLA_VER/" pom.xml
