@@ -1,6 +1,6 @@
 #!/bin/bash
 
-JAVA_ARGS="-ea -Xmx512m"
+JAVA_ARGS="-ea -Xmx2048m"
 
 echo RS client $RS_CLIENT_PATH
 echo Deobfuscator at $DEOB_PATH
