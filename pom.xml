@@ -24,7 +24,7 @@
 	<dependencies>
 		<dependency>
 			<groupId>net.runelite.rs</groupId>
-			<artifactId>rs-client</artifactId>
+			<artifactId>client</artifactId>
 			<version>1.2.3-SNAPSHOT</version>
 		</dependency>
 		<dependency>
@@ -67,7 +67,7 @@
 						<configuration>
 							<executable>${basedir}/src/main/bash/update.sh</executable>
 							<environmentVariables>
-								<RS_CLIENT_PATH>${net.runelite.rs:rs-client:jar}</RS_CLIENT_PATH>
+								<RS_CLIENT_PATH>${net.runelite.rs:client:jar}</RS_CLIENT_PATH>
 								<DEOB_PATH>${net.runelite:deob:jar:jar-with-dependencies}</DEOB_PATH>
 								<FERNFLOWER_PATH>${net.runelite:fernflower:jar}</FERNFLOWER_PATH>
 								<BASEDIR>${basedir}</BASEDIR>
