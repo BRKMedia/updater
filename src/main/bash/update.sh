@@ -92,7 +92,7 @@ echo "Commited update $VANILLA_VER to $RS_CLIENT_REPO"
 git pull --no-edit
 
 cd $RS_CLIENT_REPO
-mvn --settings $BASEDIR/travis/settings.xml clean install -DskipTests
+mvn -e --settings $BASEDIR/travis/settings.xml clean install -DskipTests
 if [ $? -ne 0 ] ; then
 	exit 1
 fi
