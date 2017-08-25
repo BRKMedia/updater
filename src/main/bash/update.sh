@@ -107,6 +107,9 @@ if [ $? -ne 0 ] ; then
 fi
 rm -f ~/.ssh/github
 
+rm -rf $STATIC_RUNELITE_NET/apidocs
+cp -r runelite-api/target/apidocs $STATIC_RUNELITE_NET
+
 # Install now that theres a new SNAPSHOT version, for below versions:use-latest-versions
 mvn --settings $BASEDIR/travis/settings.xml clean install -DskipTests
 if [ $? -ne 0 ] ; then
@@ -140,6 +143,7 @@ git push githubssh HEAD:master # travis checks out a detached head on a specific
 cd $STATIC_RUNELITE_NET
 echo '{"client":{"groupId":"net.runelite","artifactId":"client","version":"VERSION","classifier":"","extension":"jar","properties":{}},"clientJvmArguments":["-Xmx256m","-Xss2m","-Dsun.java2d.noddraw\u003dtrue","-XX:CompileThreshold\u003d1500","-Xincgc","-XX:+UseConcMarkSweepGC","-XX:+UseParNewGC"]}' | sed "s/VERSION/$RELEASED_VER/" > bootstrap.json
 git add bootstrap.json
+git add -A apidocs
 
 git config user.name "Runelite auto updater"
 git config user.email runelite@runelite.net
