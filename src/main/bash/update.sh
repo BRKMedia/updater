@@ -72,8 +72,9 @@ cd -
 # update deobfuscated client repository
 cd $RS_CLIENT_REPO/runescape-client
 git rm src/main/java/*.java
-mkdir -p src/main/java/
+mkdir -p src/main/java/net/runelite/rs
 cp /tmp/dest/*.java src/main/java/
+cp -r /tmp/dest/net/runelite/rs src/main/java/net/runelite/
 git add src/main/java/
 
 # Update RS version property
