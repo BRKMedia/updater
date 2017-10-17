@@ -36,7 +36,7 @@
 		<dependency>
 			<groupId>net.runelite</groupId>
 			<artifactId>fernflower</artifactId>
-			<version>20170616</version>
+			<version>20171017</version>
 		</dependency>
 	</dependencies>
 
