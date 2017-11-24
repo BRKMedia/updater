@@ -69,6 +69,13 @@ cd /tmp/dest
 jar xf *.jar
 cd -
 
+# check that decompiler ran ok
+grep "FF: Couldn't be decompiled" *.java
+if [ $? -eq 0 ] ; then
+	echo Error decompiling
+	exit 1
+fi
+
 # update deobfuscated client repository
 cd $RS_CLIENT_REPO/runescape-client
 git rm src/main/java/*.java
