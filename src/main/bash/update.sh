@@ -10,6 +10,7 @@ rm -rf runelite static.runelite.net
 git clone git@githubrunelite:runelite/runelite
 git clone git@githubstatic:runelite/static.runelite.net
 
+cd $RS_CLIENT_REPO
 git config user.name "Runelite auto updater"
 git config user.email runelite@runelite.net
 
