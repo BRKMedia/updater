@@ -1,0 +1,19 @@
+{
+    "client": {
+        "artifactId": "client",
+        "classifier": "",
+        "extension": "jar",
+        "groupId": "net.runelite",
+        "properties": {},
+        "version": "RELEASE"
+    },
+    "clientJvmArguments": [
+        "-Xmx256m",
+        "-Xss2m",
+        "-Dsun.java2d.noddraw=false",
+        "-XX:CompileThreshold=1500",
+        "-Xincgc",
+        "-XX:+UseConcMarkSweepGC",
+        "-XX:+UseParNewGC"
+    ]
+}

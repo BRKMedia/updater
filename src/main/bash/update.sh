@@ -33,7 +33,7 @@ RELEASED_VER=$(git describe --abbrev=0 | sed 's/runelite-parent-//')
 # Update static.runelite.net
 
 cd $STATIC_RUNELITE_NET
-echo '{"client":{"groupId":"net.runelite","artifactId":"client","version":"VERSION","classifier":"","extension":"jar","properties":{}},"clientJvmArguments":["-Xmx256m","-Xss2m","-Dsun.java2d.noddraw\u003dfalse","-XX:CompileThreshold\u003d1500","-Xincgc","-XX:+UseConcMarkSweepGC","-XX:+UseParNewGC"]}' | sed "s/VERSION/$RELEASED_VER/" > bootstrap.json
+sed "s/RELEASE/$RELEASED_VER/" $BASEDIR/bootstrap.json > bootstrap.json
 git add bootstrap.json
 git add -A api
 
