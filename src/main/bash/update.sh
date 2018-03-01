@@ -84,6 +84,11 @@ cp /tmp/dest/*.java src/main/java/
 cp -r /tmp/dest/net/runelite/rs src/main/java/net/runelite/
 git add src/main/java/
 
+# add resources
+mkdir -p src/main/resources
+curl -L oldschool.runescape.com/jav_config.ws > src/main/resources/jav_config.ws
+git add src/main/resources/jav_config.ws
+
 # Update RS version property
 cd $RS_CLIENT_REPO
 sed -i "s/rs.version>[0-9]*/rs.version>$VANILLA_VER/" pom.xml
