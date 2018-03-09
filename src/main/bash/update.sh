@@ -7,7 +7,7 @@ STATIC_RUNELITE_NET=/tmp/static.runelite.net
 # travis docs say git version is too old to do shallow pushes
 cd /tmp
 rm -rf runelite static.runelite.net
-git clone git@githubrunelite:runelite/runelite
+git clone git@githubrunelite:runelite/runelite -b 1.2.19.1
 git clone git@githubstatic:runelite/static.runelite.net
 
 cd $RS_CLIENT_REPO
