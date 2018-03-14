@@ -142,6 +142,11 @@ under the License.
       <username>runelite</username>
       <password>${env.TOMCAT_PASSWORD}</password>
     </server>
+    <server>
+      <id>github</id>
+      <username>${env.GITHUB_USERNAME}</username>
+      <privateKey>${env.GITHUB_KEY}</privateKey>
+    </server>
 
   </servers>
 
