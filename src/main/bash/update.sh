@@ -120,6 +120,9 @@ if [ $? -ne 0 ] ; then
 fi
 rm -f ~/.ssh/github
 
+# Upload release to github
+mvn de.jutzig:github-release-plugin:release --pl runelite-client -B
+
 rm -rf $STATIC_RUNELITE_NET/api
 mkdir -p $STATIC_RUNELITE_NET/api
 cp -r runelite-api/target/apidocs $STATIC_RUNELITE_NET/api/runelite-api
