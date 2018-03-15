@@ -23,7 +23,7 @@ fi
 rm -f ~/.ssh/github
 
 # Upload release to github
-mvn de.jutzig:github-release-plugin:release --pl runelite-client -B
+mvn --settings $BASEDIR/travis/settings.xml de.jutzig:github-release-plugin:release --pl runelite-client -B
 
 rm -rf $STATIC_RUNELITE_NET/api
 mkdir -p $STATIC_RUNELITE_NET/api
