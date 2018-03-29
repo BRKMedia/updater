@@ -104,10 +104,10 @@ git commit -m "Update $VANILLA_VER"
 echo "Commited update $VANILLA_VER to $RS_CLIENT_REPO"
 git pull --no-edit
 
-cd $RS_CLIENT_REPO
-mvn -e --settings $BASEDIR/travis/settings.xml clean install -DskipTests
-if [ $? -ne 0 ] ; then
-	exit 1
-fi
+#cd $RS_CLIENT_REPO
+#mvn -e --settings $BASEDIR/travis/settings.xml clean install -DskipTests
+#if [ $? -ne 0 ] ; then
+#	exit 1
+#fi
 
 git push origin master
