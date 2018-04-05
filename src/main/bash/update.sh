@@ -4,7 +4,6 @@ JAVA_ARGS="-ea -Xmx2048m"
 
 echo RS client $RS_CLIENT_PATH
 echo Deobfuscator at $DEOB_PATH
-echo Fernflower at $FERNFLOWER_PATH
 
 BASEDIR=`pwd`
 JAV_CONFIG=/tmp/jav_config.ws
@@ -62,7 +61,7 @@ fi
 # decompile deobfuscated mapped client.
 rm -rf /tmp/dest
 mkdir /tmp/dest
-java -Xmx1024m -jar $FERNFLOWER_PATH $DEOBFUSCATED_WITH_MAPPINGS /tmp/dest/
+java -Xmx1024m -cp $DEOB_PATH org.jetbrains.java.decompiler.main.decompiler.ConsoleDecompiler $DEOBFUSCATED_WITH_MAPPINGS /tmp/dest/
 
 # extract source
 cd /tmp/dest
